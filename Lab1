@@ -1,0 +1,41 @@
+//Zachariah Alber
+//Project: Lego Lab 1
+//Date: November
+
+//constants
+#define Move_Time 800
+#define Turn_Time 200
+
+//storage bytes
+deseg segment
+dseg ends
+
+
+thread main
+Input:
+      // only 3 to 8 sides (N)
+      set aaa, 4
+      //if less than ask for input again
+      brcmp LT, Input, aaa, 3
+      //if great than ask for input again
+      brcmp GT, Input, aaa, 8
+      //then we divide the sides by 360 and place it in bbb
+      div bbb, 360, aaa
+
+// the loop for the distance and angle
+loop:
+     //goes forward with both
+     OnFwd(OUT_BC,100)
+     //waits the MOVE_TIME
+     wait MOVE_TIME
+     //Revers on C
+     OnRev(OUT_C,100)
+     //stalls for TURN_TIME
+     wait TURN_TIME
+     //we then make the loop one less
+     sub aaa, aaa,1
+     //we make sure the loop is gt the input
+     brtst GT, Input, aaa
+
+     exit
+endt
